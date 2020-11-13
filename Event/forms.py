@@ -21,3 +21,9 @@ class LoginForm(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+
+class BookingForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    event_name = StringField('Event Name', validators=[DataRequired()])
