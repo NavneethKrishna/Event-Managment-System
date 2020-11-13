@@ -23,7 +23,3 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
-class BookingForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    email = StringField('E-mail', validators=[DataRequired(), Email()])
-    event_name = StringField('Event Name', validators=[DataRequired()])
