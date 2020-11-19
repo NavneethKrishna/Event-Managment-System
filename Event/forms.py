@@ -23,3 +23,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 
+class EventForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    eventname = StringField('Event name', validators=[DataRequired()])
+    submit = SubmitField('Sign Up')    

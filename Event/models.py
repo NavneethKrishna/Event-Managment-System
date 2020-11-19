@@ -14,3 +14,9 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):  #How object is printed when we print it .
         return f"User('{self.name}','{self.email}')"
+
+class Form(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=True, nullable=False)
+    email = db.Column(db.String(30), nullable=False)    
+    eventname = db.Column(db.String(120), unique=True, nullable=False)
