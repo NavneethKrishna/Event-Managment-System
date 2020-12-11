@@ -19,26 +19,61 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 order-md-1 ">
-                <h4 class="mb-3">Feedback</h4>
-                
-                <div class="mb-3">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Name">
-                </div>
+                                
+                <form class="form-feedback" method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <h4 class="mb-3">Feedback</h4>
+                    
+                    <div class="form-group">
+                        {{ form.name.label(class="sr-only") }}
+                        <label for="comment">Name:</label>
+                        {% if form.name.errors %}
+                            {{ form.name(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                         {% else %}
+                            {{ form.name(class="form-control", placeholder="Name")}}
+                         {% endif %}
+                         
+                    </div>
 
-                <div class="mb-3">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email">
-                </div> 
+                    <div class="form-group">
+                        {{ form.email.label(class="sr-only") }}
+                        <label for="comment">E-Mail:</label>
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                         {% else %}
+                            {{ form.email(class="form-control",placeholder="Email")}}
+                         {% endif %}
+                    </div>
 
-                <div class="form-group">
-                    <label for="comment">Feedback:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
-                </div>
+                    <div class="form-group">
+                        {{ form.feedback.label(class="sr-only") }}
+                        <label for="comment">Feedback:</label>
+                        {% if form.feedback.errors %}
+                            {{ form.feedback(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                            {% for error in form.feedback.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.feedback(class="form-control",id="Textarea1",rows="5",placeholder="Feedback")}}
+                        {% endif %}
+
+                    </div>
                 
-                <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-                
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                </form>
 
                 <div class="d-flex justify-content-lg-around">
                     <div class="p-4">

@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect
 from Event import app, db, bcrypt 
-from Event.forms import RegistrationForm, LoginForm
-from Event.models import User
+from Event.forms import RegistrationForm, LoginForm, FeedbackForm
+from Event.models import User, Feedback
 from flask.helpers import url_for
 from flask_login import login_user
 
@@ -12,7 +12,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         if form.email.data == 'admin@event.com' and form.password.data == 'password':
-            flash('You have been Logged in !!','success')
+            flash("You have been Logged in !!","success")
             return redirect(url_for('home'))
         else:
             user = User.query.filter_by(email = form.email.data).first()
@@ -20,7 +20,7 @@ def login():
                 login_user(user)
                 return redirect(url_for('home'))
             else:
-                flash('Login unsuccessful. Please check your email and password')
+                flash("Login unsuccessful. Please check your email and password","success")
 
     return render_template('login.html', title='Title', form=form)
 
@@ -32,7 +32,7 @@ def register():
         user = User(name=form.name.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash(f'Your account has been created successfully!!','success')
+        flash("Your account has been created successfully!!","success")
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -44,6 +44,12 @@ def home():
 def form():
     return render_template('form.html', title='Forms')
 
-@app.route("/feedback.html")
+@app.route("/feedback.html", methods=['GET', 'POST'])
 def feedback():
-    return render_template('feedback.html', title='Feedback')
+    form = FeedbackForm()
+    if form.validate_on_submit():
+        feedback = Feedback(name=form.name.data, email=form.email.data, feedback=form.feedback.data)
+        db.session.add(feedback)
+        db.session.commit()
+        flash("Thank you for the feedback !!","success")
+    return render_template('feedback.html', title='Feedback', form=form)

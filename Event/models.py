@@ -14,3 +14,9 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):  #How object is printed when we print it .
         return f"User('{self.name}','{self.email}')"
+
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=True, nullable=False)
+    email = db.Column(db.String(30), nullable=False) 
+    feedback = db.Column(db.String(120), nullable=False)

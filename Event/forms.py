@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TimeField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TimeField, TextAreaField
 from wtforms import validators
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from Event.models import User
@@ -22,8 +22,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+class FeedbackForm(FlaskForm):
+    name = StringField('Name',validators=[DataRequired()])
+    email = StringField('Email',validators=[DataRequired(), Email()])
+    feedback = TextAreaField('Feedback',validators=[DataRequired()])
+    submit = SubmitField('Submit')
+    
 
-class feedbackform(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    email = StringField('E-mail',validators=[DataRequired(),Email()])
-    feedback = StringField('Feedback', validators=[DataRequired()])
+ 
