@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField
 from wtforms import validators
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Length
 from Event.models import User
 from wtforms.fields.html5 import DateField
 from wtforms_alchemy import PhoneNumberField
@@ -53,3 +53,9 @@ class BookingForm(FlaskForm):
         except (phonenumbers.phonenumberutil.NumberParseException, ValueError):
             raise ValidationError('Invalid phone number')
     
+class PaymentForm(FlaskForm):
+    name = StringField('Name',validators=[DataRequired()])
+    card_number = StringField('Card Number',validators=[DataRequired(),Length(min=16,max=16)])
+    expiry_date = DateField('Date',format='%Y-%m-%d')
+    cvv = StringField('CVV', validators=[DataRequired(), Length(3,3)])
+    submit = SubmitField('Submit')

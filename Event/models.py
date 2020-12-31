@@ -5,15 +5,21 @@ from flask_login import  UserMixin
 def load_user(user_id):
     return User.query.get(int())
 
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30),nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-
+    login = db.relationship('Login', backref='login', lazy=True)
+    
     def __repr__(self):  #How object is printed when we print it .
         return f"User('{self.name}','{self.email}')"
+
+class Login(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(30), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,3 +39,13 @@ class Booking(db.Model):
     attendees = db.Column(db.Integer, nullable = False)
     time = db.Column(db.Time, nullable = False)
     additional_requirements = db.Column(db.String(120), nullable=False)
+
+    def __repr__(self):  #How object is printed when we print it .
+        return f"User('{self.name}','{self.email}')"
+
+class Payment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name_on_card = db.Column(db.String(30),nullable=False)
+    card_number = db.Column(db.String(30),nullable=False)
+    expiry_date = db.Column(db.String(30), nullable = False)
+    cvv = db.Column(db.String(30), nullable = False)
