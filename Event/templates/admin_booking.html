@@ -1,16 +1,26 @@
 {% extends "admin_layout.html" %}
-
+<head>
+  <style>
+    .container {
+    max-width: 960px;
+    padding-left: 200px;
+    padding-top: 110px;
+    }
+  
+    .lh-condensed { line-height: 1.25; }
+    </style>
+</head>
 {% block content %}
-{% for post in posts %}
-<div class="container">
+  <div class="container">
     <div class="row">
-      <div class="col-md-8 order-md-1 ">   
+      <div class="col-md-8 order-md-1 ">
+                
         <form class="form-Booking" method="POST" action="">
           {{ form.hidden_tag() }}
           <h4 class="mb-3">Event Details</h4>
-          <h3>{{ post.id }}</h3>    
+
           <div class="form-group">
-            {{ form.name.label(class="sr-only")}}
+            {{ form.name.label(class="sr-only") }}
             <label for="comment">Name:</label>
             {% if form.name.errors %}
                 {{ form.name(class="form-control form-control-lg is-invalid") }}
@@ -20,7 +30,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.name(class="form-control",value=post.name)}}
+                {{ form.name(class="form-control", placeholder="Name")}}
              {% endif %}
              
         </div>
@@ -36,7 +46,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.email(class="form-control",value=post.email)}}
+                {{ form.email(class="form-control",placeholder="Email")}}
              {% endif %}
         </div>
         
@@ -51,7 +61,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.event_name(class="form-control", value=post.event_name )}}
+                {{ form.event_name(class="form-control", placeholder="Event Name")}}
              {% endif %}
           </div>
 
@@ -66,7 +76,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.city(class="form-control", value=post.city)}}
+                {{ form.city(class="form-control", placeholder="city")}}
              {% endif %}
           </div>
 
@@ -81,7 +91,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.venue(class="form-control", value=post.venue)}}
+                {{ form.venue(class="form-control", placeholder="Venue")}}
              {% endif %}
           </div>
 
@@ -96,7 +106,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.date(class="form-control", value=post.date)}}
+                {{ form.date(class="form-control", placeholder="Event Name")}}
              {% endif %}
           </div>
 
@@ -111,7 +121,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.phone(class="form-control", value=post.phone)}}
+                {{ form.phone(class="form-control", placeholder="Phone Number")}}
              {% endif %}
           </div>
 
@@ -127,7 +137,7 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.attendees(class="form-control",type="number",id="example-number-input", value=post.attendees)}}
+                {{ form.attendees(class="form-control",type="number",id="example-number-input",placeholder="Attendees")}}
              {% endif %}
           </div>
 
@@ -143,37 +153,34 @@
                 {% endfor %}
                 </div>
              {% else %}
-                {{ form.time(class="form-control",type="time",id="ime-input",value=post.time)}}
+                {{ form.time(class="form-control",type="time",id="ime-input")}}
              {% endif %}
           </div>          
 
-         <div class="form-group">
-            {{ form.name.label(class="sr-only")}}
-            <label for="comment">Additional Requirements</label>
-            {% if form.name.errors %}
-                {{ form.name(class="form-control form-control-lg is-invalid") }}
+
+
+
+
+          <div class="form-group">
+            {{ form.additional_requirements.label(class="sr-only") }}
+            <label for="comment">Additional Requirements(Mention if catering service is required)</label>
+            {% if form.additional_requirements.errors %}
+                {{ form.feedback(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
-                {% for error in form.name.errors %}
+                {% for error in form.additional_requirements.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
                 </div>
-             {% else %}
-                {{ form.name(class="form-control",value=post.additional_requirements)}}
-             {% endif %}
-             
-        </div>
+            {% else %}
+                {{ form.additional_requirements(class="form-control",id="Textarea1",rows="5",placeholder="Feedback")}}
+            {% endif %}
+          </div>
       
 
-          
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
         </form>
       </div>
     </div>
   </div>
-
-    <a class="btn btn-primary btn-sm m-1" href="{{ url_for('update', booking_id=post.id) }}">Update</a>
-    <form action="{{ url_for('delete', booking_id=post.id ) }}" method="POST">
-      <input class="btn btn-danger btn-sm m-1" type="submit" value="Delete">
-   </form>
-    <h2>------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
-{% endfor %}
 {% endblock content %}

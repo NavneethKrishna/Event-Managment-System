@@ -53,6 +53,27 @@ class BookingForm(FlaskForm):
         except (phonenumbers.phonenumberutil.NumberParseException, ValueError):
             raise ValidationError('Invalid phone number')
     
+class UpdateForm(FlaskForm):
+    name = StringField('Name',validators=[DataRequired()])
+    email = StringField('Email',validators=[DataRequired(), Email()])
+    event_name = StringField('Event Name', validators=[DataRequired()])
+    date = DateField("Date",format='%Y-%m-%d')
+    phone = StringField('Phone', validators=[DataRequired()])
+    attendees = IntegerField('Attendees',validators=[DataRequired()])
+    time = TimeField('Time', format='%H:%M')
+    city = StringField('City', validators=[DataRequired()])
+    venue = StringField('venue')
+    additional_requirements = TextAreaField('Additional Requirements',validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def validate_phone(self, phone):
+        try:
+            p = phonenumbers.parse(phone.data)
+            if not phonenumbers.is_valid_number(p):
+                raise ValueError()
+        except (phonenumbers.phonenumberutil.NumberParseException, ValueError):
+            raise ValidationError('Invalid phone number')
+
 class PaymentForm(FlaskForm):
     name = StringField('Name',validators=[DataRequired()])
     card_number = StringField('Card Number',validators=[DataRequired(),Length(min=16,max=16)])

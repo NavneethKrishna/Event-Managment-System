@@ -1,7 +1,7 @@
-{% extends "admin_layout.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
-{% for post in posts %}
+
 <div class="container">
     <div class="row">
       <div class="col-md-8 order-md-1 ">   
@@ -170,10 +170,8 @@
     </div>
   </div>
 
-    <a class="btn btn-primary btn-sm m-1" href="{{ url_for('update', booking_id=post.id) }}">Update</a>
-    <form action="{{ url_for('delete', booking_id=post.id ) }}" method="POST">
-      <input class="btn btn-danger btn-sm m-1" type="submit" value="Delete">
-   </form>
+    <a class="btn btn-secondary btn-sm" href="{{ url_for('yyupdate_booking', booking_id=Booking.id) }}">Update</a>
+    
     <h2>------------------------------------------------------------------------------------------------------------------------------------------------------------</h2>
-{% endfor %}
+
 {% endblock content %}
