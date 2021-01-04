@@ -20,10 +20,9 @@ def login():
                 login = Login(email=form.email.data,user_id=user.id)
                 db.session.add(login)
                 db.session.commit()
-                flash("You have been Logged in !!","success")
                 return redirect(url_for('home'))
             else:
-                flash("Login unsuccessful. Please check your email and password","success")
+                flash("Login unsuccessful. Please check your email and password","danger")
     return render_template('login.html', title='Title', form=form)
 
 @app.route("/register.html", methods=['GET', 'POST'])
@@ -72,8 +71,8 @@ def feedback():
 def payment():
     form = PaymentForm()
     if form.validate_on_submit():
-        booking = Booking.query.get_or_404(current_user.id)
-        payment = Payment(name_on_card=form.name.data,card_number=form.card_number.data,expiry_date=form.expiry_date.data,cvv=form.cvv.data, user_id=current_user.id, booking_id=booking.id )
+        book = Booking.query.get_or_404(current_user.id)
+        payment = Payment(name_on_card=form.name.data,card_number=form.card_number.data,expiry_date=form.expiry_date.data,cvv=form.cvv.data, user_id=current_user.id, booking_id=book.booking.id )
         db.session.add(payment)
         db.session.commit()
         flash("Payment Done !!","success")

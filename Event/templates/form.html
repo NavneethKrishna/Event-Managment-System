@@ -18,7 +18,15 @@
         <form class="form-Booking" method="POST" action="">
           {{ form.hidden_tag() }}
           <h4 class="mb-3">Event Details</h4>
-
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
           <div class="form-group">
             {{ form.name.label(class="sr-only") }}
             <label for="comment">Name:</label>

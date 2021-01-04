@@ -22,6 +22,15 @@
                                 
                 <form class="form-feedback" method="POST" action="">
                     {{ form.hidden_tag() }}
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
                     <h4 class="mb-3">Feedback</h4>
                     
                     <div class="form-group">
