@@ -11,7 +11,6 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         if form.email.data == 'admin@event.com' and form.password.data == 'password':
-            flash("You have been Logged in !!","success")
             return redirect(url_for('admin'))
         else:
             user = User.query.filter_by(email = form.email.data).first()
@@ -22,7 +21,7 @@ def login():
                 db.session.commit()
                 return redirect(url_for('home'))
             else:
-                flash("Login unsuccessful. Please check your email and password","danger")
+                flash("Login unsuccessful. Please check your email and password","success")
     return render_template('login.html', title='Title', form=form)
 
 @app.route("/register.html", methods=['GET', 'POST'])
@@ -33,7 +32,6 @@ def register():
         user = User(name=form.name.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash("Your account has been created successfully!!","success")
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -52,7 +50,6 @@ def form():
         db.session.add(booking)
         db.session.commit()
         return redirect(url_for('payment'))
-        flash("Thank you for the feedback !!","success")
     return render_template('form.html', title='Forms', form=form)
 
 @app.route("/feedback.html", methods=['GET', 'POST'])
@@ -71,8 +68,8 @@ def feedback():
 def payment():
     form = PaymentForm()
     if form.validate_on_submit():
-        book = Booking.query.get_or_404(current_user.id)
-        payment = Payment(name_on_card=form.name.data,card_number=form.card_number.data,expiry_date=form.expiry_date.data,cvv=form.cvv.data, user_id=current_user.id, booking_id=book.booking.id )
+        booking = Booking.query.get_or_404(current_user.id)
+        payment = Payment(name_on_card=form.name.data,card_number=form.card_number.data,expiry_date=form.expiry_date.data,cvv=form.cvv.data, user_id=current_user.id)
         db.session.add(payment)
         db.session.commit()
         flash("Payment Done !!","success")
@@ -93,7 +90,6 @@ def admin_booking():
         db.session.add(booking)
         db.session.commit()
         return redirect(url_for('admin_booking'))
-        flash("Thank you for the feedback !!","success")
     return render_template('admin_booking.html', title='Forms', form=form)
 
 @app.route("/admin.html/update.html/<int:booking_id>", methods=['GET', 'POST'])
@@ -129,7 +125,6 @@ def delete(booking_id):
     book = Booking.query.get_or_404(booking_id)
     db.session.delete(book)
     db.session.commit()
-    flash('Booking has been deleted',"Success")
     return redirect(url_for('admin'))
 
 @app.route("/logout")

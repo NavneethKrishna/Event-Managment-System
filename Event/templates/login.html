@@ -15,17 +15,7 @@
             </nav>
           </div>
     </header>
-
     <form class="form-signin" method="POST">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-         {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">
-              {{ message }}
-            </div>
-          {% endfor %}
-       {% endif %}
-  {% endwith %}
      <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
      {{ form.hidden_tag()}}   
         <div class="form-group">
