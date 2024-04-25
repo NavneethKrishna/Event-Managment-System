@@ -1,0 +1,2 @@
+Create a virtual environment : python -m venv event/bin/activate
+Activate a virtual environment : event\Scripts\activate
