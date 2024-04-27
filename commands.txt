@@ -1,2 +1,10 @@
+------------------------------------------------------------------------------
+Command to create a python virtual environment
+------------------------------------------------------------------------------
 Create a virtual environment : python -m venv event/bin/activate
 Activate a virtual environment : event\Scripts\activate
+
+------------------------------------------------------------------------------
+Commands to create and run docker container
+Command to create a docker image: docker build -t event:0.0.1 .
+command to run the docker container: docker run -p 5000:5000 event:0.0.1
